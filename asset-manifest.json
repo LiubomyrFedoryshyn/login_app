@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/login_app/static/css/main.c8bc9dd7.chunk.css",
+    "main.js": "/login_app/static/js/main.c5be5f41.chunk.js",
+    "main.js.map": "/login_app/static/js/main.c5be5f41.chunk.js.map",
+    "runtime-main.js": "/login_app/static/js/runtime-main.97b25ecf.js",
+    "runtime-main.js.map": "/login_app/static/js/runtime-main.97b25ecf.js.map",
+    "static/css/2.827a966c.chunk.css": "/login_app/static/css/2.827a966c.chunk.css",
+    "static/js/2.8e4026f7.chunk.js": "/login_app/static/js/2.8e4026f7.chunk.js",
+    "static/js/2.8e4026f7.chunk.js.map": "/login_app/static/js/2.8e4026f7.chunk.js.map",
+    "index.html": "/login_app/index.html",
+    "precache-manifest.7b0278a006c566c4fd1c08d278e3e737.js": "/login_app/precache-manifest.7b0278a006c566c4fd1c08d278e3e737.js",
+    "service-worker.js": "/login_app/service-worker.js",
+    "static/css/2.827a966c.chunk.css.map": "/login_app/static/css/2.827a966c.chunk.css.map",
+    "static/css/main.c8bc9dd7.chunk.css.map": "/login_app/static/css/main.c8bc9dd7.chunk.css.map",
+    "static/js/2.8e4026f7.chunk.js.LICENSE.txt": "/login_app/static/js/2.8e4026f7.chunk.js.LICENSE.txt",
+    "static/media/all.css": "/login_app/static/media/fa-solid-900.cdfec5cf.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.97b25ecf.js",
+    "static/css/2.827a966c.chunk.css",
+    "static/js/2.8e4026f7.chunk.js",
+    "static/css/main.c8bc9dd7.chunk.css",
+    "static/js/main.c5be5f41.chunk.js"
+  ]
+}
