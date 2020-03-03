@@ -1,0 +1,162 @@
+* {
+  font-family: "Poppins", sans-serif;
+  color: var(--white);
+}
+
+h2 {
+  text-align: center;
+}
+
+input {
+  position: relative;
+  font-size: 15px;
+  transition: 0.3s;
+  opacity: 0.5;
+  border: 1px solid var(--white);
+  padding: 5px 10px;
+  background-color: transparent;
+  outline: none;
+  color: var(--white);
+  &:hover,
+  &:focus {
+    opacity: 0.8;
+  }
+  &::placeholder {
+    color: var(--white);
+  }
+  &.is-danger {
+    border-color: var(--red);
+  }
+}
+
+.main-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .login-wrapper {
+    background-color: var(--primary-color);
+    padding: 20px;
+    width: 40%;
+    .toggler-wrapper {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      button {
+        width: 50%;
+      }
+    }
+  }
+  .form-wrapper {
+    width: 100%;
+    margin: 0 auto;
+    .field {
+      margin-bottom: 20px;
+      display: flex;
+      input {
+        width: 100%;
+      }
+      &.flexed {
+        justify-content: space-between;
+        .with-icon {
+          width: 48%;
+          input {
+            width: 100%;
+          }
+        }
+        input {
+          width: 43%;
+        }
+      }
+      .with-icon {
+        display: flex;
+        position: relative;
+        width: 100%;
+        input {
+          width: 100%;
+          padding-right: 25px;
+        }
+        i {
+          position: absolute;
+          right: 10px;
+          top: 8px;
+          opacity: 0.5;
+          font-size: 15px;
+          cursor: pointer;
+          transition: 0.3s;
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+    .forgot-description {
+      text-align: end;
+      margin-bottom: 20px;
+      margin-top: 30px;
+      a {
+        color: var(--active-color);
+        text-decoration: none;
+        font-size: 12px;
+        transition: 0.3s;
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+  }
+}
+
+button {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  background-color: var(--gray);
+  color: var(--white);
+  padding: 12px;
+  text-align: center;
+  transition: 0.3s;
+  &:hover {
+    background-color: var(--active-hover);
+    color: var(--muted-white);
+  }
+  &.medium {
+    font-size: 15px;
+  }
+  &.large {
+    font-size: 18px;
+    width: 100%;
+  }
+  &.active {
+    background-color: var(--active-color);
+    &:hover {
+      background-color: var(--active-hover);
+      color: var(--muted-white);
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .main-wrapper {
+    .login-wrapper {
+      width: 80%;
+      .form-wrapper {
+        .field.flexed {
+          flex-wrap: wrap;
+          .with-icon {
+            width: 100%;
+            margin-bottom: 20px;
+          }
+          input {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+@import "../styles/transitionGroups.scss";
+@import "../styles/variables.scss";
