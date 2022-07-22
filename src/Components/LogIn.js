@@ -1,106 +1,93 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Link, BrowserRouter } from "react-router-dom";
 import classNames from "classnames";
 
-class LogIn extends Component {
-  state = {
-    loginForm: {
-      email: "",
-      password: ""
-    },
-    typeSwitcher: false,
-    formTriggered: false
-  };
+const LogIn = () => {
+    const [loginForm, setLoginForm] = useState({ email: "", password: "" });
+    const [typeSwitcher, setTypeSwitcher] = useState(false);
+    const [formTriggered, setFormTriggered] = useState(false);
 
-  get heading() {
-    return (
-      <div className="heading">
-        <h2>Welcome Back!</h2>
-      </div>
-    );
-  }
-
-  get loginForm() {
-    const { email, password } = this.state.loginForm;
-    return (
-      <div className="form-wrapper">
-        {this.heading}
-        <form name="loginForm" onSubmit={this.onSubmit}>
-          <div className="field">
-            <input
-              autoComplete="off"
-              required
-              className={classNames("email", {
-                "is-danger": !email && this.state.formTriggered
-              })}
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email Address *"
-              value={email}
-              onChange={this.validateOnChange}
-            />
-          </div>
-          <div className="field">
-            <div className="with-icon">
-              <input
-                required
-                className={classNames("password", {
-                  "is-danger": !password && this.state.formTriggered
-                })}
-                name="password"
-                id="password"
-                type={this.state.typeSwitcher ? "text" : "password"}
-                placeholder="Set A Password *"
-                value={password}
-                onChange={this.validateOnChange}
-              />
-              <i
-                onClick={() =>
-                  this.setState({ typeSwitcher: !this.state.typeSwitcher })
-                }
-                className={
-                  this.state.typeSwitcher ? "fas fa-lock-open" : "fas fa-lock"
-                }
-              ></i>
+    const heading = () => {
+        return (
+            <div className="heading">
+                <h2>Welcome Back!</h2>
             </div>
-          </div>
-          <div className="forgot-description">
-            <BrowserRouter>
-              <Link to="#" href="#">
-                Forgot Password?
-              </Link>
-            </BrowserRouter>
-          </div>
-          <button onClick={this.onSubmit} className="large active">
-            LOG IN
-          </button>
-        </form>
-      </div>
-    );
-  }
+        );
+    };
 
-  onSubmit = () => {
-    this.setState({ formTriggered: true });
-    //here is the place for another back-end call
-  };
+    const formLogin = () => {
+        const { email, password } = loginForm;
+        return (
+            <div className="form-wrapper">
+                {heading()}
+                <form name="loginForm" onSubmit={onSubmit}>
+                    <div className="field">
+                        <input
+                            autoComplete="off"
+                            required
+                            className={classNames("email", {
+                                "is-danger": !email && formTriggered,
+                            })}
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="Email Address *"
+                            value={email}
+                            onChange={validateOnChange}
+                        />
+                    </div>
+                    <div className="field">
+                        <div className="with-icon">
+                            <input
+                                required
+                                className={classNames("password", {
+                                    "is-danger": !password && formTriggered,
+                                })}
+                                name="password"
+                                id="password"
+                                type={typeSwitcher ? "text" : "password"}
+                                placeholder="Set A Password *"
+                                value={password}
+                                onChange={validateOnChange}
+                            />
+                            <i
+                                onClick={() => setTypeSwitcher(!typeSwitcher)}
+                                className={typeSwitcher ? "fas fa-lock-open" : "fas fa-lock"}
+                            ></i>
+                        </div>
+                    </div>
+                    <div className="forgot-description">
+                        <BrowserRouter>
+                            <Link to="#" href="#">
+                                Forgot Password?
+                            </Link>
+                        </BrowserRouter>
+                    </div>
+                    <button onClick={onSubmit} className="large active">
+                        LOG IN
+                    </button>
+                </form>
+            </div>
+        );
+    };
 
-  validateOnChange = event => {
-    const input = event.target;
-    const form = input.form;
-    const value = input.value;
+    const onSubmit = () => {
+        setFormTriggered(true);
+        //here is the place for another back-end call
+    };
 
-    this.setState({
-      [form.name]: {
-        ...this.state[form.name],
-        [input.name]: value
-      }
-    });
-  };
+    const validateOnChange = (event) => {
+        const input = event.target;
+        const form = input.form;
+        const value = input.value;
 
-  render() {
-    return <div className="log-in-wrapper">{this.loginForm}</div>;
-  }
-}
+        setLoginForm({
+            ...[form.name],
+            [input.name]: value,
+        });
+    };
+
+    return <div className="log-in-wrapper">{formLogin()}</div>;
+};
 
 export default LogIn;
