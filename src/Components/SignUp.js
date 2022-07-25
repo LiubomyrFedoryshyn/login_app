@@ -25,35 +25,43 @@ const SignUp = ({ toggleForm }) => {
         return (
             <div className="form-wrapper">
                 {heading()}
-                <form name="signUpForm" onSubmit={onSubmit}>
+                <form onSubmit={onSubmit} name="signUpForm">
                     <div className="field flexed">
-                        <div className="with-icon">
-                            <input
-                                required
-                                className={classNames("firstName", {
-                                    "is-danger": !firstName && formTriggered,
-                                })}
-                                placeholder="First Name *"
-                                name="firstName"
-                                id="firstName"
-                                type="text"
-                                value={firstName}
-                                onChange={validateOnChange}
-                            />
-                            <i className="fas fa-user-md"></i>
+                        <div className="wrap">
+                            <div className="with-icon">
+                                <input
+                                    required
+                                    className={classNames("firstName", {
+                                        "is-danger": !firstName && formTriggered,
+                                    })}
+                                    placeholder="First Name *"
+                                    name="firstName"
+                                    id="firstName"
+                                    type="text"
+                                    value={firstName}
+                                    onChange={setupFormValue}
+                                />
+                                <i className="fas fa-user-md"></i>
+                            </div>
+                            {!firstName && formTriggered && <span className="error-message">Field is required</span>}
                         </div>
-                        <input
-                            required
-                            className={classNames("lastName", {
-                                "is-danger": !lastName && formTriggered,
-                            })}
-                            name="lastName"
-                            id="lastName"
-                            type="text"
-                            placeholder={"Last Name *"}
-                            value={lastName}
-                            onChange={validateOnChange}
-                        />
+                        <div className="wrap">
+                            <div className="with-icon">
+                                <input
+                                    required
+                                    className={classNames("lastName", {
+                                        "is-danger": !lastName && formTriggered,
+                                    })}
+                                    name="lastName"
+                                    id="lastName"
+                                    type="text"
+                                    placeholder={"Last Name *"}
+                                    value={lastName}
+                                    onChange={setupFormValue}
+                                />
+                            </div>
+                            {!lastName && formTriggered && <span className="error-message">Field is required</span>}
+                        </div>
                     </div>
                     <div className="field">
                         <input
@@ -66,9 +74,11 @@ const SignUp = ({ toggleForm }) => {
                             type="email"
                             placeholder="Email Address *"
                             value={email}
-                            onChange={validateOnChange}
+                            onChange={setupFormValue}
                         />
+                        {!email && formTriggered && <span className="error-message">Field is required</span>}
                     </div>
+
                     <div className="field">
                         <div className="with-icon">
                             <input
@@ -81,17 +91,16 @@ const SignUp = ({ toggleForm }) => {
                                 type={typeSwitcher ? "text" : "password"}
                                 placeholder="Set A Password *"
                                 value={password}
-                                onChange={validateOnChange}
+                                onChange={setupFormValue}
                             />
                             <i
                                 onClick={() => setTypeSwitcher(!typeSwitcher)}
                                 className={typeSwitcher ? "fas fa-lock-open" : "fas fa-lock"}
                             ></i>
                         </div>
+                        {!password && formTriggered && <span className="error-message">Field is required</span>}
                     </div>
-                    <button onClick={onSubmit} className="large active">
-                        GET STARED
-                    </button>
+                    <button className="large active">GET STARED</button>
                 </form>
             </div>
         );
@@ -101,19 +110,18 @@ const SignUp = ({ toggleForm }) => {
         e.preventDefault();
         const { firstName, lastName, email, password } = signUpForm;
         setFormTriggered(true);
-        // if (firstName && lastName && email && password) {
-        const response = await createUser(signUpForm);
-        if (response?.status === 200) toggleForm();
-        // }
+        if (firstName && lastName && email && password) {
+            const response = await createUser(signUpForm);
+            console.log(response);
+            if (response?.status === 200) toggleForm();
+        }
     };
 
-    const validateOnChange = (event) => {
-        const input = event.target;
-        const form = input.form;
-        const value = input.value;
-
+    const setupFormValue = (e) => {
+        const value = e.target.value;
+        const input = e.target;
         setSignUpForm({
-            ...[form.name],
+            ...signUpForm,
             [input.name]: value,
         });
     };

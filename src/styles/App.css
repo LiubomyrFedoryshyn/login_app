@@ -1,260 +1,267 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
 * {
-  font-family: "Poppins", sans-serif;
-  color: var(--white);
+    font-family: "Poppins", sans-serif;
+    color: var(--white);
 }
 
 h2 {
-  text-align: center;
+    text-align: center;
 }
 
 input {
-  position: relative;
-  font-size: 15px;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
-  opacity: 0.5;
-  border: 1px solid var(--white);
-  padding: 5px 10px;
-  background-color: transparent;
-  outline: none;
-  color: var(--white);
+    position: relative;
+    font-size: 15px;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    opacity: 0.5;
+    border: 1px solid var(--white);
+    padding: 5px 10px;
+    background-color: transparent;
+    outline: none;
+    color: var(--white);
 }
 
-input:hover, input:focus {
-  opacity: 0.8;
+input:hover,
+input:focus {
+    opacity: 0.8;
 }
 
 input::-webkit-input-placeholder {
-  color: var(--white);
+    color: var(--white);
 }
 
 input:-ms-input-placeholder {
-  color: var(--white);
+    color: var(--white);
 }
 
 input::-ms-input-placeholder {
-  color: var(--white);
+    color: var(--white);
 }
 
 input::placeholder {
-  color: var(--white);
+    color: var(--white);
 }
 
 input.is-danger {
-  border-color: var(--red);
+    border-color: var(--red);
 }
 
 .main-wrapper {
-  height: 100vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+    height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
 }
 
 .main-wrapper .login-wrapper {
-  background-color: var(--primary-color);
-  padding: 20px;
-  width: 40%;
+    background-color: var(--primary-color);
+    padding: 20px;
+    width: 40%;
 }
 
 .main-wrapper .login-wrapper .toggler-wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .main-wrapper .login-wrapper .toggler-wrapper button {
-  width: 50%;
+    width: 50%;
 }
 
 .main-wrapper .form-wrapper {
-  width: 100%;
-  margin: 0 auto;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .main-wrapper .form-wrapper .field {
-  margin-bottom: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .main-wrapper .form-wrapper .field input {
-  width: 100%;
+    width: 100%;
 }
 
 .main-wrapper .form-wrapper .field.flexed {
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
 }
 
-.main-wrapper .form-wrapper .field.flexed .with-icon {
-  width: 48%;
+.main-wrapper .form-wrapper .field.flexed .wrap {
+    width: 48%;
 }
 
 .main-wrapper .form-wrapper .field.flexed .with-icon input {
-  width: 100%;
+    width: 100%;
 }
 
 .main-wrapper .form-wrapper .field.flexed input {
-  width: 43%;
+    width: 43%;
 }
 
 .main-wrapper .form-wrapper .field .with-icon {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-  width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    width: 100%;
 }
 
 .main-wrapper .form-wrapper .field .with-icon input {
-  width: 100%;
-  padding-right: 25px;
+    width: 100%;
+    padding-right: 25px;
 }
 
 .main-wrapper .form-wrapper .field .with-icon i {
-  position: absolute;
-  right: 10px;
-  top: 8px;
-  opacity: 0.5;
-  font-size: 15px;
-  cursor: pointer;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    opacity: 0.5;
+    font-size: 15px;
+    cursor: pointer;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
 }
 
 .main-wrapper .form-wrapper .field .with-icon i:hover {
-  opacity: 0.8;
+    opacity: 0.8;
 }
 
 .main-wrapper .form-wrapper .forgot-description {
-  text-align: end;
-  margin-bottom: 20px;
-  margin-top: 30px;
+    text-align: end;
+    margin-bottom: 20px;
+    margin-top: 30px;
 }
 
 .main-wrapper .form-wrapper .forgot-description a {
-  color: var(--active-color);
-  text-decoration: none;
-  font-size: 12px;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
+    color: var(--active-color);
+    text-decoration: none;
+    font-size: 12px;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
 }
 
 .main-wrapper .form-wrapper .forgot-description a:hover {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 button {
-  outline: none;
-  cursor: pointer;
-  border: none;
-  background-color: var(--gray);
-  color: var(--white);
-  padding: 12px;
-  text-align: center;
-  -webkit-transition: 0.3s;
-  transition: 0.3s;
+    outline: none;
+    cursor: pointer;
+    border: none;
+    background-color: var(--gray);
+    color: var(--white);
+    padding: 12px;
+    text-align: center;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
 }
 
 button:hover {
-  background-color: var(--active-hover);
-  color: var(--muted-white);
+    background-color: var(--active-hover);
+    color: var(--muted-white);
 }
 
 button.medium {
-  font-size: 15px;
+    font-size: 15px;
 }
 
 button.large {
-  font-size: 18px;
-  width: 100%;
+    font-size: 18px;
+    width: 100%;
 }
 
 button.active {
-  background-color: var(--active-color);
+    background-color: var(--active-color);
 }
 
 button.active:hover {
-  background-color: var(--active-hover);
-  color: var(--muted-white);
+    background-color: var(--active-hover);
+    color: var(--muted-white);
 }
 
 @media only screen and (max-width: 767px) {
-  .main-wrapper .login-wrapper {
-    width: 80%;
-  }
-  .main-wrapper .login-wrapper .form-wrapper .field.flexed {
-    -ms-flex-wrap: wrap;
+    .main-wrapper .login-wrapper {
+        width: 80%;
+    }
+    .main-wrapper .login-wrapper .form-wrapper .field.flexed {
+        -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-  }
-  .main-wrapper .login-wrapper .form-wrapper .field.flexed .with-icon {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  .main-wrapper .login-wrapper .form-wrapper .field.flexed input {
-    width: 100%;
-  }
+    }
+    .main-wrapper .login-wrapper .form-wrapper .field.flexed .with-icon {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .main-wrapper .login-wrapper .form-wrapper .field.flexed input {
+        width: 100%;
+    }
 }
 
 .fade-appear {
-  opacity: 0;
+    opacity: 0;
 }
 
 .fade-appear.fade-appear-active {
-  opacity: 1;
-  -webkit-transition: opacity 300ms linear;
-  transition: opacity 300ms linear;
+    opacity: 1;
+    -webkit-transition: opacity 300ms linear;
+    transition: opacity 300ms linear;
 }
 
 .fade-exit {
-  opacity: 1;
+    opacity: 1;
 }
 
 .fade-exit.fade-exit-active {
-  opacity: 0;
-  -webkit-transition: opacity 300ms linear;
-  transition: opacity 300ms linear;
+    opacity: 0;
+    -webkit-transition: opacity 300ms linear;
+    transition: opacity 300ms linear;
 }
 
 .fade-exit-done {
-  opacity: 0;
+    opacity: 0;
 }
 
 .fade-enter {
-  opacity: 0;
+    opacity: 0;
 }
 
 .fade-enter.fade-enter-active {
-  opacity: 1;
-  -webkit-transition: opacity 300ms linear;
-  transition: opacity 300ms linear;
+    opacity: 1;
+    -webkit-transition: opacity 300ms linear;
+    transition: opacity 300ms linear;
+}
+
+.error-message {
+    color: var(--red);
+    font-size: 12px;
 }
 
 :root {
-  --primary-color: #2a3847;
-  --active-color: #37b793;
-  --active-hover: #3a8678;
-  --white: #fff;
-  --muted-white: #9ac7bb;
-  --gray: #4e5d65;
-  --red: #e00e0e;
+    --primary-color: #2a3847;
+    --active-color: #37b793;
+    --active-hover: #3a8678;
+    --white: #fff;
+    --muted-white: #9ac7bb;
+    --gray: #4e5d65;
+    --red: #e00e0e;
 }
 /*# sourceMappingURL=App.css.map */

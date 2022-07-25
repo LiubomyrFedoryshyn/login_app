@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import { CSSTransition } from "react-transition-group";
-
-// import { ToastContainer } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
-import "./styles/App.css";
-
 import SignUp from "./Components/SignUp";
 import LogIn from "./Components/LogIn";
 
@@ -54,17 +49,6 @@ const LoginApp = () => {
                     </CSSTransition>
                 )}
             </div>
-            {/* <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                /> */}
         </div>
     );
 };

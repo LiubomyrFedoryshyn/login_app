@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const httpRequest = async ({ url = "/", method = "GET", params = {}, headers = {}, data }) => {
     try {
@@ -15,10 +16,9 @@ const httpRequest = async ({ url = "/", method = "GET", params = {}, headers = {
             },
             data,
         });
-        return response.response;
+        return response;
     } catch (e) {
-        console.log(e.response);
-        // toast(e.response.body);
+        toast.error(e?.response?.data?.message);
         return e.response;
     }
 };
