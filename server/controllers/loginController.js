@@ -1,4 +1,4 @@
-const User = require("../models/login");
+const User = require("../models/signUp");
 const validateObj = require("../helpers/validateObj");
 
 // const blog_index = (req, res) => {
@@ -35,14 +35,43 @@ const user_create_post = (req, res) => {
         });
         return;
     } else {
-        user.save()
-            .then((result) => {
-                res.status(200);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-            .finally(() => res.send(user));
+        User.find({ email: user.email }, function (err, docs) {
+            if (docs.length) {
+                res.status(400).json({
+                    message: `There already exists an account registered with this email address.`,
+                });
+            } else {
+                user.save()
+                    .then((result) => {
+                        res.status(200);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                    .finally(() => res.send(user));
+            }
+        });
+    }
+};
+
+const user_auth_post = (req, res) => {
+    const user = req.body;
+    const validator = validateObj(user, ["email", "password"]);
+    if (validator) {
+        res.status(400).json({
+            message: `${validator.join(", ")} fields are required`,
+        });
+        return;
+    } else {
+        User.find(user, function (err, docs) {
+            if (docs.length) {
+                res.status(200).json();
+            } else {
+                res.status(400).json({
+                    message: `Incorrect email address or password.`,
+                });
+            }
+        });
     }
 };
 
@@ -55,4 +84,4 @@ const user_create_post = (req, res) => {
 //         .catch((err) => console.log(err));
 // };
 
-module.exports = { user_create_post };
+module.exports = { user_create_post, user_auth_post };

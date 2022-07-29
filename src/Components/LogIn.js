@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, BrowserRouter } from "react-router-dom";
 import classNames from "classnames";
+import { toast } from "react-toastify";
+import { loginUser } from "../services/api/rest/methods";
 
 const LogIn = () => {
     const [loginForm, setLoginForm] = useState({ email: "", password: "" });
@@ -33,7 +35,7 @@ const LogIn = () => {
                             id="email"
                             placeholder="Email Address *"
                             value={email}
-                            onChange={validateOnChange}
+                            onChange={setupFormValue}
                         />
                     </div>
                     <div className="field">
@@ -48,7 +50,7 @@ const LogIn = () => {
                                 type={typeSwitcher ? "text" : "password"}
                                 placeholder="Set A Password *"
                                 value={password}
-                                onChange={validateOnChange}
+                                onChange={setupFormValue}
                             />
                             <i
                                 onClick={() => setTypeSwitcher(!typeSwitcher)}
@@ -63,26 +65,27 @@ const LogIn = () => {
                             </Link>
                         </BrowserRouter>
                     </div>
-                    <button onClick={onSubmit} className="large active">
-                        LOG IN
-                    </button>
+                    <button className="large active">LOG IN</button>
                 </form>
             </div>
         );
     };
 
-    const onSubmit = () => {
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        const { email, password } = loginForm;
         setFormTriggered(true);
+        if (email && password) {
+            const response = await loginUser(loginForm);
+            if (response?.status === 200) toast.success("User found");
+        }
         //here is the place for another back-end call
     };
-
-    const validateOnChange = (event) => {
-        const input = event.target;
-        const form = input.form;
-        const value = input.value;
-
+    const setupFormValue = (e) => {
+        const value = e.target.value;
+        const input = e.target;
         setLoginForm({
-            ...[form.name],
+            ...loginForm,
             [input.name]: value,
         });
     };

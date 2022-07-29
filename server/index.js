@@ -30,5 +30,4 @@ mongoose
 
 app.use(express.urlencoded({ extended: true })); // for accepting form data
 app.use(morgan("dev"));
-
 app.use("/login", loginRoutes);

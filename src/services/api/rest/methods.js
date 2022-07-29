@@ -8,4 +8,12 @@ const createUser = (data) => {
     });
 };
 
-export { createUser };
+const loginUser = (data) => {
+    return httpRequest({
+        url: " http://localhost:3001/login/auth-user",
+        method: "POST",
+        data,
+    });
+};
+
+export { createUser, loginUser };

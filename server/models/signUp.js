@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const loginSchema = new Schema(
+const signUpSchema = new Schema(
     {
         firstName: {
             type: String,
@@ -24,6 +24,6 @@ const loginSchema = new Schema(
     { timestamps: true }
 );
 
-const Login = mongoose.model("User", loginSchema);
+const User = mongoose.model("User", signUpSchema);
 
-module.exports = Login;
+module.exports = User;

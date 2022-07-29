@@ -112,7 +112,6 @@ const SignUp = ({ toggleForm }) => {
         setFormTriggered(true);
         if (firstName && lastName && email && password) {
             const response = await createUser(signUpForm);
-            console.log(response);
             if (response?.status === 200) toggleForm();
         }
     };
