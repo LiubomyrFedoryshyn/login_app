@@ -13,7 +13,6 @@ const loginUser = (data) => {
         url: "login/auth-user",
         method: "POST",
         data,
-        params: { credentials: "include" },
     });
 };
 

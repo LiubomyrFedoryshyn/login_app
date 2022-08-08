@@ -77,6 +77,7 @@ const LogIn = () => {
         if (email && password) {
             const response = await loginUser(loginForm);
             if (response?.status === 200) {
+                localStorage.setItem("user_key", response?.data?.user?._id);
                 toast.success("Signed in successfully!");
                 navigate(`/user-dashboard`);
             }

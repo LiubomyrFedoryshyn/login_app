@@ -80,7 +80,7 @@ const user_auth_post = (req, res) => {
                 }
                 const token = jwt.sign({ email: user.email, fullName: user.fullName, _id: user._id }, "RESTFULAPIs");
                 res.cookie("token", token, { httpOnly: true });
-                res.json({ token });
+                res.json({ token, user });
             }
         );
     }
