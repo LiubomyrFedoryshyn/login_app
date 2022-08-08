@@ -37,7 +37,7 @@ const user_create_post = (req, res) => {
         });
         return;
     } else {
-        User.find({ email: user.email }, function (err, docs) {
+        User.find({ email: user.email }, (err, docs) => {
             if (docs.length) {
                 res.status(400).json({
                     message: `There already exists an account registered with this email address.`,
@@ -73,7 +73,7 @@ const user_auth_post = (req, res) => {
             {
                 email: req.body.email,
             },
-            function (err, user) {
+            (err, user) => {
                 if (err) throw err;
                 if (!user || !user.comparePassword(req.body.password)) {
                     return res.status(401).json({ message: "Authentication failed. Invalid email or password." });

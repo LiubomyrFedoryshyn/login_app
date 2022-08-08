@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const loginRoutes = require("./routes/loginRoutes");
+const userRoutes = require("./routes/userRoutes");
 const jsonwebtoken = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
@@ -63,3 +64,4 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use("/login", loginRoutes);
+app.use("/user", userRoutes);

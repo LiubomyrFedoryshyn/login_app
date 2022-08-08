@@ -16,4 +16,11 @@ const loginUser = (data) => {
     });
 };
 
-export { createUser, loginUser };
+const getUser = (id) => {
+    return httpRequest({
+        url: `user/info/${id}`,
+        method: "GET",
+    });
+};
+
+export { createUser, loginUser, getUser };
