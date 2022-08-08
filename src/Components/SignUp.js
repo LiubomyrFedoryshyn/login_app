@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import { createUser } from "../services/api/rest/methods";
+import { toast } from "react-toastify";
 
 const SignUp = ({ toggleForm }) => {
     const [typeSwitcher, setTypeSwitcher] = useState(false);
@@ -112,7 +113,10 @@ const SignUp = ({ toggleForm }) => {
         setFormTriggered(true);
         if (firstName && lastName && email && password) {
             const response = await createUser(signUpForm);
-            if (response?.status === 200) toggleForm();
+            if (response?.status === 200) {
+                toggleForm();
+                toast.success("User was successfully created!");
+            }
         }
     };
 

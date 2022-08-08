@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
 const signUpSchema = new Schema(
@@ -14,15 +14,21 @@ const signUpSchema = new Schema(
         },
         email: {
             type: String,
+            unique: true,
+            lowercase: true,
+            trim: true,
             required: true,
         },
         password: {
             type: String,
-            required: true,
         },
     },
     { timestamps: true }
 );
+
+signUpSchema.methods.comparePassword = function (password) {
+    return bcrypt.compareSync(password, this.password);
+};
 
 const User = mongoose.model("User", signUpSchema);
 

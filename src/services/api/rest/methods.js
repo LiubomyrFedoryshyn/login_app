@@ -2,7 +2,7 @@ import httpRequest from "../httpRequest";
 
 const createUser = (data) => {
     return httpRequest({
-        url: " http://localhost:3001/login/create-user",
+        url: "login/create-user",
         method: "POST",
         data,
     });
@@ -10,9 +10,10 @@ const createUser = (data) => {
 
 const loginUser = (data) => {
     return httpRequest({
-        url: " http://localhost:3001/login/auth-user",
+        url: "login/auth-user",
         method: "POST",
         data,
+        params: { credentials: "include" },
     });
 };
 

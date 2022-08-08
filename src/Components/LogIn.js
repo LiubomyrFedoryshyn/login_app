@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link, BrowserRouter } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { toast } from "react-toastify";
 import { loginUser } from "../services/api/rest/methods";
 
 const LogIn = () => {
+    const navigate = useNavigate();
     const [loginForm, setLoginForm] = useState({ email: "", password: "" });
     const [typeSwitcher, setTypeSwitcher] = useState(false);
     const [formTriggered, setFormTriggered] = useState(false);
@@ -59,11 +60,9 @@ const LogIn = () => {
                         </div>
                     </div>
                     <div className="forgot-description">
-                        <BrowserRouter>
-                            <Link to="#" href="#">
-                                Forgot Password?
-                            </Link>
-                        </BrowserRouter>
+                        <Link to="#" href="#">
+                            Forgot Password?
+                        </Link>
                     </div>
                     <button className="large active">LOG IN</button>
                 </form>
@@ -77,7 +76,10 @@ const LogIn = () => {
         setFormTriggered(true);
         if (email && password) {
             const response = await loginUser(loginForm);
-            if (response?.status === 200) toast.success("User found");
+            if (response?.status === 200) {
+                toast.success("Signed in successfully!");
+                navigate(`/user-dashboard`);
+            }
         }
         //here is the place for another back-end call
     };

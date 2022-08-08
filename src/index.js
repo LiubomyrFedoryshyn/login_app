@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import LoginApp from "./LoginApp";
+import { BrowserRouter } from "react-router-dom";
+import Router from "./routes";
 import { ToastContainer } from "react-toastify";
 import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,7 +14,9 @@ import "./styles/App.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
-        <LoginApp />
+        <BrowserRouter>
+            <Router />
+        </BrowserRouter>
         <ToastContainer
             position="top-right"
             autoClose={5000}

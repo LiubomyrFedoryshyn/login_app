@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const User = require("../models/signUp");
 const validateObj = require("../helpers/validateObj");
 
@@ -27,7 +29,7 @@ const validateObj = require("../helpers/validateObj");
 // };
 
 const user_create_post = (req, res) => {
-    const user = new User(req.body);
+    let user = new User(req.body);
     const validator = validateObj(user, ["firstName", "lastName", "email", "password"]);
     if (validator) {
         res.status(400).json({
@@ -41,6 +43,7 @@ const user_create_post = (req, res) => {
                     message: `There already exists an account registered with this email address.`,
                 });
             } else {
+                user.password = bcrypt.hashSync(req.body.password, 10);
                 user.save()
                     .then((result) => {
                         res.status(200);
@@ -48,7 +51,10 @@ const user_create_post = (req, res) => {
                     .catch((err) => {
                         console.log(err);
                     })
-                    .finally(() => res.send(user));
+                    .finally(() => {
+                        user.password = undefined;
+                        res.json(user);
+                    });
             }
         });
     }
@@ -63,17 +69,39 @@ const user_auth_post = (req, res) => {
         });
         return;
     } else {
-        User.find(user, function (err, docs) {
-            if (docs.length) {
-                res.status(200).json();
-            } else {
-                res.status(400).json({
-                    message: `Incorrect email address or password.`,
-                });
+        User.findOne(
+            {
+                email: req.body.email,
+            },
+            function (err, user) {
+                if (err) throw err;
+                if (!user || !user.comparePassword(req.body.password)) {
+                    return res.status(401).json({ message: "Authentication failed. Invalid email or password." });
+                }
+                const token = jwt.sign({ email: user.email, fullName: user.fullName, _id: user._id }, "RESTFULAPIs");
+                res.cookie("token", token, { httpOnly: true });
+                res.json({ token });
             }
-        });
+        );
     }
 };
+
+// const login_required = (req, res, next) => {
+//     if (req.user) {
+//         next();
+//     } else {
+//         return res.status(401).json({ message: "Unauthorized user!!" });
+//     }
+// };
+
+// const profile = (req, res, next) => {
+//     if (req.user) {
+//         res.send(req.user);
+//         next();
+//     } else {
+//         return res.status(401).json({ message: "Invalid token" });
+//     }
+// };
 
 // const blog_delete = (req, res) => {
 //     const id = req.params.id;
@@ -84,4 +112,9 @@ const user_auth_post = (req, res) => {
 //         .catch((err) => console.log(err));
 // };
 
-module.exports = { user_create_post, user_auth_post };
+module.exports = {
+    user_create_post,
+    user_auth_post,
+    // login_required,
+    // profile
+};
