@@ -23,4 +23,11 @@ const getUser = (id) => {
     });
 };
 
-export { createUser, loginUser, getUser };
+const logOutUser = () => {
+    return httpRequest({
+        url: "login/logout",
+        method: "POST",
+    });
+};
+
+export { createUser, loginUser, getUser, logOutUser };

@@ -1,7 +1,6 @@
 const User = require("../models/signUp");
 
 const user_info = (req, res) => {
-    console.log(req.params.id);
     const id = req.params.id;
     User.findById(id)
         .then((result) => {

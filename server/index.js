@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const loginRoutes = require("./routes/loginRoutes");
 const userRoutes = require("./routes/userRoutes");
-const jsonwebtoken = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const app = express();
@@ -33,30 +33,33 @@ express.json();
 mongoose
     .connect(DBURI, option)
     .then((res) => {
-        // jwt token init
-        app.use(function (req, res, next) {
-            if (req.headers && req.headers.authorization && req.headers.authorization.split(" ")[0] === "JWT") {
-                jsonwebtoken.verify(req.headers.authorization.split(" ")[1], "RESTFULAPIs", function (err, decode) {
-                    if (err) req.user = undefined;
-                    req.user = decode;
-                    next();
-                });
-            } else {
-                req.user = undefined;
-                next();
-            }
-        });
-
-        app.use(function (req, res) {
-            res.status(404).send({ url: req.originalUrl + " not found" });
-        });
-
         app.listen(PORT);
         console.log(" RESTful API server started on: " + PORT);
     })
     .catch((err) => {
         console.log(err);
     });
+
+// jwt token verification
+app.use(function (req, res, next) {
+    if (!req.originalUrl.includes("login")) {
+        const token = req.cookies.token;
+        if (!token) {
+            return res.status(403).json({ message: "User is not authenticated" });
+        }
+        try {
+            const data = jwt.verify(token, "token");
+            req.userId = data.id;
+            req.userRole = data.role;
+            return next();
+        } catch {
+            res.clearCookie("token");
+            return res.status(403).json({ message: "Some error is occured, please, try again later!" });
+        }
+    } else {
+        return next();
+    }
+});
 
 // app.use(express.urlencoded({ extended: true })); // for accepting form data
 // app.use(morgan("dev"));

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { getUser } from "./services/api/rest/methods";
+import { getUser, logOutUser } from "./services/api/rest/methods";
+import redirectLogOut from "./helpers/redirectLogOut";
 
 const UserDashboard = () => {
     useEffect(() => {
@@ -17,6 +18,11 @@ const UserDashboard = () => {
         }
     };
 
+    const logOut = async () => {
+        await logOutUser();
+        redirectLogOut();
+    };
+
     return (
         <div className="main-wrapper">
             <div className="login-wrapper">
@@ -28,6 +34,9 @@ const UserDashboard = () => {
                 )}
                 {user?.email && <p>{user?.email}</p>}
                 {user?.createdAt && <p>Created in {moment(user?.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</p>}
+                <button onClick={logOut} className="medium active">
+                    Log out
+                </button>
             </div>
         </div>
     );

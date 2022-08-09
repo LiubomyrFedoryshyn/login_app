@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import redirectLogOut from "../../helpers/redirectLogOut";
 
 const httpRequest = async ({ url = "/", method = "GET", params = {}, headers = {}, data }) => {
     try {
@@ -16,8 +17,12 @@ const httpRequest = async ({ url = "/", method = "GET", params = {}, headers = {
             },
             data,
         });
+
         return response;
     } catch (e) {
+        if (e?.response.status === 403) {
+            redirectLogOut();
+        }
         toast.error(e?.response?.data?.message);
         return e.response;
     }

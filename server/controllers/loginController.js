@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt");
 const User = require("../models/signUp");
 const validateObj = require("../helpers/validateObj");
 
+const JWT_TOKEN_EXPIRATION_TIME = "2h";
+
 // const blog_index = (req, res) => {
 //     Blog.find()
 //         .sort({ createdAt: -1 })
@@ -78,7 +80,11 @@ const user_auth_post = (req, res) => {
                 if (!user || !user.comparePassword(req.body.password)) {
                     return res.status(401).json({ message: "Authentication failed. Invalid email or password." });
                 }
-                const token = jwt.sign({ email: user.email, fullName: user.fullName, _id: user._id }, "RESTFULAPIs");
+                const token = jwt.sign(
+                    { email: user.email, firstName: user.firstName, lastName: user.lastName, _id: user._id },
+                    "token",
+                    { expiresIn: JWT_TOKEN_EXPIRATION_TIME }
+                );
                 res.cookie("token", token, { httpOnly: true });
                 res.json({ token, user });
             }
@@ -86,35 +92,13 @@ const user_auth_post = (req, res) => {
     }
 };
 
-// const login_required = (req, res, next) => {
-//     if (req.user) {
-//         next();
-//     } else {
-//         return res.status(401).json({ message: "Unauthorized user!!" });
-//     }
-// };
-
-// const profile = (req, res, next) => {
-//     if (req.user) {
-//         res.send(req.user);
-//         next();
-//     } else {
-//         return res.status(401).json({ message: "Invalid token" });
-//     }
-// };
-
-// const blog_delete = (req, res) => {
-//     const id = req.params.id;
-//     Blog.findByIdAndDelete(id)
-//         .then((result) => {
-//             res.json({ redirect: "/blogs" });
-//         })
-//         .catch((err) => console.log(err));
-// };
+const logout_user = (req, res) => {
+    res.clearCookie("token");
+    res.json();
+};
 
 module.exports = {
     user_create_post,
     user_auth_post,
-    // login_required,
-    // profile
+    logout_user,
 };
