@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import classNames from "classnames";
 import { CSSTransition } from "react-transition-group";
-import SignUp from "./Components/SignUp";
-import LogIn from "./Components/LogIn";
+import SignUp from "../Components/SignUp";
+import LogIn from "../Components/LogIn";
+import ResetPassword from "../Components/ResetPassword";
 
 const LoginApp = () => {
     const [signUpFormActive, setSignUpFormActive] = useState(true);
+    const [resetPasswordAtive, setResetPasswordActive] = useState(false);
 
     const formToggler = () => {
         return (
@@ -37,16 +39,24 @@ const LoginApp = () => {
     return (
         <div className="main-wrapper">
             <div className="login-wrapper">
-                {formToggler()}
-                {signUpFormActive && (
-                    <CSSTransition in={true} appear={true} timeout={300} classNames="fade">
-                        <SignUp toggleForm={toggleForm} />
-                    </CSSTransition>
-                )}
-                {!signUpFormActive && (
-                    <CSSTransition in={true} appear={true} timeout={300} classNames="fade">
-                        <LogIn />
-                    </CSSTransition>
+                {resetPasswordAtive ? (
+                    <>
+                        <ResetPassword setResetPasswordActive={setResetPasswordActive} />
+                    </>
+                ) : (
+                    <>
+                        {formToggler()}
+                        {signUpFormActive && (
+                            <CSSTransition in={true} appear={true} timeout={300} classNames="fade">
+                                <SignUp toggleForm={toggleForm} />
+                            </CSSTransition>
+                        )}
+                        {!signUpFormActive && (
+                            <CSSTransition in={true} appear={true} timeout={300} classNames="fade">
+                                <LogIn setResetPasswordActive={setResetPasswordActive} />
+                            </CSSTransition>
+                        )}
+                    </>
                 )}
             </div>
         </div>

@@ -1,5 +1,4 @@
 const express = require("express");
-// const morgan = require("morgan");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const loginRoutes = require("./routes/loginRoutes");
@@ -61,8 +60,6 @@ app.use(function (req, res, next) {
     }
 });
 
-// app.use(express.urlencoded({ extended: true })); // for accepting form data
-// app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

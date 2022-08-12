@@ -2,33 +2,22 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const User = require("../models/signUp");
 const validateObj = require("../helpers/validateObj");
+const nodemailer = require("nodemailer");
+const validatePassword = require("../helpers/validatePassword");
+const generatePassord = require("../helpers/generatePassword");
 
 const JWT_TOKEN_EXPIRATION_TIME = "2h";
 
-// const blog_index = (req, res) => {
-//     Blog.find()
-//         .sort({ createdAt: -1 })
-//         .then((response) => {
-//             res.render("blogs/index", { title: "All Blogs", blogs: response });
-//         })
-//         .catch((err) => console.log(err));
-// };
-
-// const blog_details = (req, res) => {
-//     const id = req.params.id;
-//     Blog.findById(id)
-//         .then((result) => {
-//             res.render("blogs/details", { blog: result, title: "Blog Details" });
-//         })
-//         .catch((err) => {
-//             // 404 page
-//             res.status(404).render("404", { title: "Blog not found" });
-//         });
-// };
-
-// const blog_create_get = (req, res) => {
-//     res.render("blogs/create", { title: "Create A New Blog" });
-// };
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+        user: "", // your external gmail account
+        pass: "", // your external gmail account application password
+    },
+});
 
 const user_create_post = (req, res) => {
     let user = new User(req.body);
@@ -38,6 +27,11 @@ const user_create_post = (req, res) => {
             message: `${validator.join(", ")} fields are required`,
         });
         return;
+    } else if (!validatePassword(user.password)) {
+        return res.status(400).json({
+            message: `Password should hawe at least one lowercase letter, one uppercase letter, one digit, one special
+            character, and is at least eight characters long!`,
+        });
     } else {
         User.find({ email: user.email }, (err, docs) => {
             if (docs.length) {
@@ -70,6 +64,11 @@ const user_auth_post = (req, res) => {
             message: `${validator.join(", ")} fields are required`,
         });
         return;
+    } else if (!validatePassword(user.password)) {
+        return res.status(400).json({
+            message: `Password should hawe at least one lowercase letter, one uppercase letter, one digit, one special
+            character, and is at least eight characters long!`,
+        });
     } else {
         User.findOne(
             {
@@ -97,8 +96,63 @@ const logout_user = (req, res) => {
     res.json();
 };
 
+const reset_password = (req, res) => {
+    const validator = validateObj(req.body, ["email"]);
+    if (validator) {
+        res.status(400).json({
+            message: `${validator.join(", ")} fields are required`,
+        });
+        return;
+    } else {
+        User.findOne(
+            {
+                email: req.body.email,
+            },
+            (err, user) => {
+                if (err) throw err;
+                if (!user) {
+                    return res.status(401).json({ message: "There is no user with such an email" });
+                }
+
+                const generatedPass = generatePassord();
+
+                transporter.sendMail(
+                    {
+                        from: "", // your external email account
+                        to: req.body.email,
+                        subject: "Email was sent automatically using login application",
+                        text: `Your new password is "${generatedPass}". Please, don't share it with anyone!`,
+                    },
+                    (err, info) => {
+                        if (err) {
+                            throw err;
+                        } else {
+                            console.log(info.response);
+                            res.status(200);
+                            res.json();
+                        }
+                    }
+                );
+                user.password = bcrypt.hashSync(generatedPass, 10);
+                user.save()
+                    .then((result) => {
+                        res.status(200);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                    .finally(() => {
+                        user.password = undefined;
+                        res.json(user);
+                    });
+            }
+        );
+    }
+};
+
 module.exports = {
     user_create_post,
     user_auth_post,
     logout_user,
+    reset_password,
 };

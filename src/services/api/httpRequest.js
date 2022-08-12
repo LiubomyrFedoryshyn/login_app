@@ -1,6 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-import redirectLogOut from "../../helpers/redirectLogOut";
+import { redirectLogOut } from "../../helpers";
 
 const httpRequest = async ({ url = "/", method = "GET", params = {}, headers = {}, data }) => {
     try {

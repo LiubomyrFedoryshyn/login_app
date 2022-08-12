@@ -107,6 +107,9 @@ input {
                     opacity: 0.5;
                 }
             }
+            &.center {
+                text-align: center;
+            }
         }
     }
 }
@@ -137,6 +140,27 @@ button {
             background-color: var(--active-hover);
             color: var(--muted-white);
         }
+    }
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.back-icon {
+    transition: 0.3s;
+    font-size: 18px;
+    cursor: pointer;
+    &:hover {
+        color: var(--active-color);
+    }
+}
+
+p {
+    &.is-danger {
+        color: var(--red);
+        font-size: 12px;
+        margin: 4px 0;
     }
 }
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import { createUser } from "../services/api/rest/methods";
 import { toast } from "react-toastify";
+import { validatePassword } from "../helpers";
 
 const SignUp = ({ toggleForm }) => {
     const [typeSwitcher, setTypeSwitcher] = useState(false);
@@ -85,10 +86,12 @@ const SignUp = ({ toggleForm }) => {
                             <input
                                 required
                                 className={classNames("password", {
-                                    "is-danger": !password && formTriggered,
+                                    "is-danger": (!password && formTriggered) || (!validatePassword(password) && formTriggered),
                                 })}
                                 name="password"
                                 id="password"
+                                maxLength={12}
+                                minLength={8}
                                 type={typeSwitcher ? "text" : "password"}
                                 placeholder="Set A Password *"
                                 value={password}
@@ -100,6 +103,12 @@ const SignUp = ({ toggleForm }) => {
                             ></i>
                         </div>
                         {!password && formTriggered && <span className="error-message">Field is required</span>}
+                        {password && !validatePassword(password) && formTriggered && (
+                            <p className="is-danger">
+                                Password should hawe at least one lowercase letter, one uppercase letter, one digit, one special
+                                character, and is at least eight characters long
+                            </p>
+                        )}
                     </div>
                     <button className="large active">GET STARED</button>
                 </form>
@@ -111,7 +120,7 @@ const SignUp = ({ toggleForm }) => {
         e.preventDefault();
         const { firstName, lastName, email, password } = signUpForm;
         setFormTriggered(true);
-        if (firstName && lastName && email && password) {
+        if (firstName && lastName && email && password && validatePassword(password)) {
             const response = await createUser(signUpForm);
             if (response?.status === 200) {
                 toggleForm();
@@ -123,6 +132,7 @@ const SignUp = ({ toggleForm }) => {
     const setupFormValue = (e) => {
         const value = e.target.value;
         const input = e.target;
+        setFormTriggered(false);
         setSignUpForm({
             ...signUpForm,
             [input.name]: value,

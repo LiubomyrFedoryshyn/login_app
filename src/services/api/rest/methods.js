@@ -30,4 +30,20 @@ const logOutUser = () => {
     });
 };
 
-export { createUser, loginUser, getUser, logOutUser };
+const resetPassword = (data) => {
+    return httpRequest({
+        url: "login/reset-password",
+        method: "POST",
+        data,
+    });
+};
+
+const changePassword = (data) => {
+    return httpRequest({
+        url: "user/change-password",
+        method: "PATCH",
+        data,
+    });
+};
+
+export { createUser, loginUser, getUser, logOutUser, resetPassword, changePassword };
