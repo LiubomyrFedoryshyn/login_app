@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const app = express();
-const DBURI = "mongodb+srv://robber:lf846375999186@loginapp.sjtbh.mongodb.net/userlist?retryWrites=true&w=majority";
+const DBURI = "mongodb+srv://robber:<your-password-here>@loginapp.sjtbh.mongodb.net/userlist?retryWrites=true&w=majority";
 
 const corsOptions = {
     origin: "http://localhost:3000",
